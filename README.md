@@ -1,170 +1,243 @@
-ClinicSync: Hospital Management System
+🚀 ClinicSync Installation Guide
+Welcome to the installation guide for ClinicSync, a multi-tenant Hospital Management System (HMS) built with Laravel and powered by the stancl/tenancy package. This guide will walk you through setting up the project from a Git repository, configuring SSH keys for GitHub, and initializing multi-tenancy for healthcare facilities. Let’s get started! 🎉
+
+🔧 Prerequisites
+Before you begin, ensure the following are installed on your system:
+
+Git: Version control system for cloning the repository.
+PHP: ≥ 8.1 (Laravel 10.x compatible).
+Composer: Dependency manager for PHP.
+Node.js & npm: For frontend assets (e.g., Tailwind CSS, Vite).
+Database Server: MySQL, PostgreSQL, or SQLite.
+Web Server: Apache, Nginx, or Laravel’s development server (via artisan serve).
+Tenancy Package: stancl/tenancy for multi-tenant support.
+Optional: Laravel Herd (for local development on macOS/Windows).
 
 
+1️⃣ Set Up SSH Key for GitHub
+To securely clone the ClinicSync repository, configure an SSH key for GitHub.
+Generate SSH Key
+ssh-keygen -t ed25519 -C "your_email@example.com"
 
 
+Press Enter to accept the default file location (~/.ssh/id_ed25519).
+Enter a secure passphrase (optional but recommended).
 
+Start SSH Agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
 
+Copy SSH Public Key
+macOS:
+pbcopy < ~/.ssh/id_ed25519.pub
 
+Windows:
+cat ~/.ssh/id_ed25519.pub | clip
 
-About ClinicSync
-ClinicSync is a robust, multi-tenant Hospital Management System (HMS) built on the Laravel framework with tenancy support, designed to streamline healthcare operations for clinics and hospitals. Leveraging Laravel's expressive and elegant syntax, ClinicSync simplifies complex tasks such as patient management, appointment scheduling, billing, and staff coordination while ensuring scalability and data isolation for multiple healthcare facilities (tenants).
-ClinicSync is built to be:
+Linux or manual:
+cat ~/.ssh/id_ed25519.pub
 
-Secure: Multi-tenancy ensures data isolation between clinics or hospitals.
-Scalable: Supports multiple tenants with independent databases or schemas.
-User-Friendly: Provides an intuitive interface for administrators, doctors, and staff.
-Customizable: Easily extendable to meet specific healthcare needs.
+Copy the output to your clipboard.
+Add SSH Key to GitHub
 
-Key Features
+Go to GitHub Settings > SSH and GPG keys.
+Click New SSH key or Add SSH key.
+Paste the public key, give it a descriptive title (e.g., “ClinicSync Laptop”).
+Click Add SSH key.
 
-Multi-Tenancy: Each clinic or hospital operates as a tenant with isolated data (database or schema-based tenancy).
-Patient Management: Register, track, and manage patient records, medical histories, and prescriptions.
-Appointment Scheduling: Book, reschedule, or cancel appointments with automated reminders.
-Billing & Invoicing: Generate invoices, process payments, and track financials for each tenant.
-Staff Management: Manage doctors, nurses, and administrative staff with role-based access control.
-Inventory Management: Track medical supplies, medications, and equipment per tenant.
-Reporting & Analytics: Generate reports on patient visits, revenue, and staff performance.
-Real-Time Notifications: Broadcast appointment updates and alerts using Laravel's event system.
-Secure Authentication: Role-based authentication with Laravel Sanctum or Passport for API access.
-Customizable Workflows: Adaptable to various healthcare workflows (e.g., outpatient, inpatient, diagnostics).
+Test SSH Connection
+ssh -T git@github.com
 
-ClinicSync harnesses Laravel's powerful features, including:
+Expected output:Hi username! You've successfully authenticated...
 
-Simple, fast routing engine.
-Powerful dependency injection container.
-Eloquent ORM for intuitive database interactions.
-Schema migrations for tenant-specific database management.
-Robust background job processing for tasks like reminders.
-Real-time event broadcasting for notifications.
-
-Getting Started
-Prerequisites
-
-PHP: >= 8.1
-Composer: Latest version
-Laravel: >= 10.x
-Database: MySQL, PostgreSQL, or any Laravel-supported database
-Web Server: Apache or Nginx
-Node.js & NPM: For frontend assets (if using Laravel Breeze or similar)
-Tenancy Package: stancl/tenancy for multi-tenancy support
-
-Installation
-
-Clone the Repository:
-git clone https://github.com/your-repo/clinicsync.git
+2️⃣ Clone the Repository
+Clone the ClinicSync repository to your local machine:
+git clone git@github.com:your-username/clinicsync.git clinicsync
 cd clinicsync
 
+Replace your-username with your GitHub username and clinicsync with your repository name.
 
-Install Dependencies:
+3️⃣ Install PHP Dependencies
+Install Laravel and tenancy dependencies using Composer:
 composer install
-npm install && npm run build
+
+If you don’t have the stancl/tenancy package, install it:
+composer require stancl/tenancy
 
 
-Configure Environment:
+4️⃣ Install JavaScript Dependencies
+Install frontend dependencies (e.g., Tailwind CSS, Vite):
+npm install
 
-Copy .env.example to .env:cp .env.example .env
 
+5️⃣ Configure Environment
+Copy the example environment file and configure it:
+cp .env.example .env
 
-Update .env with your database credentials and tenancy settings:DB_CONNECTION=mysql
+Edit .env with your database and tenancy settings. Example:
+APP_NAME=ClinicSync
+APP_URL=http://localhost
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+
+DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=clinicsync_central
 DB_USERNAME=root
 DB_PASSWORD=
 
+# Tenancy Configuration
 TENANCY_DATABASE_PREFIX=tenant_
 TENANCY_CENTRAL_DOMAINS=localhost
 TENANCY_TENANT_DOMAINS=*.localhost
 
 
+Database: Set DB_DATABASE to the central database name (e.g., clinicsync_central).
+Tenancy: Configure TENANCY_DATABASE_PREFIX for tenant databases (e.g., tenant_clinic1).
+Domains: Adjust TENANCY_CENTRAL_DOMAINS and TENANCY_TENANT_DOMAINS for your setup (e.g., subdomains like clinic1.localhost).
 
 
-Generate Application Key:
+6️⃣ Generate Application Key
+Generate a unique application key for Laravel:
 php artisan key:generate
 
 
-Run Migrations:
+7️⃣ Set Up Multi-Tenancy
+ClinicSync uses stancl/tenancy for multi-tenancy, allowing each clinic or hospital to operate with an isolated database.
+Initialize Tenancy
+php artisan tenancy:install
 
-Initialize the central database (for tenant management):php artisan migrate
+This sets up the tenancy configuration and creates necessary migrations.
+Run Central Database Migrations
+Migrate the central database (stores tenant metadata):
+php artisan migrate
 
-
-Set up tenancy migrations for tenant databases:php artisan tenancy:migrate
-
-
-
-
-Initialize Tenancy:
-
-Create a tenant (e.g., for a clinic named "Sunrise Clinic"):php artisan tenants:seed --tenant=sunrise_clinic
-
+Create a Tenant
+Create a tenant for a clinic (e.g., “Sunrise Clinic”):
+php artisan tenants:seed --tenant=sunrise_clinic
 
 This creates a tenant-specific database (e.g., tenant_sunrise_clinic) and seeds initial data.
+Run Tenant Migrations
+Apply migrations to all tenant databases:
+php artisan tenancy:migrate
 
 
-Start the Development Server:
+8️⃣ Set Up Database
+Create the central database (e.g., clinicsync_central) in your database server (MySQL, PostgreSQL, or SQLite). For SQLite:
+touch database/clinicsync_central.sqlite
+
+Run seeders (if applicable):
+php artisan db:seed
+
+
+9️⃣ Link Storage
+Create a symbolic link for file storage (e.g., patient documents, invoices):
+php artisan storage:link
+
+
+🔟 Build Frontend Assets
+Compile frontend assets using Vite:
+For development:
+npm run dev
+
+For production:
+npm run build
+
+
+1️⃣1️⃣ Start the Development Server
+Launch Laravel’s development server:
 php artisan serve
 
-Access the system at http://sunrise_clinic.localhost:8000 (configure your hosts file or DNS for subdomains).
+Access the application at:
+
+Central domain: http://localhost:8000
+Tenant domain: http://sunrise_clinic.localhost:8000 (configure your hosts file or DNS for subdomains).
+
+If using Laravel Herd, access at https://clinicsync.test or https://sunrise_clinic.test.
+
+✅ Optional Steps
+Queue Workers
+For background jobs (e.g., sending appointment reminders):
+php artisan queue:work
+
+Task Scheduling
+For scheduled tasks (e.g., daily reports), add to your server’s crontab:
+* * * * * cd /path/to/clinicsync && php artisan schedule:run >> /dev/null 2>&1
+
+Debugging
+Install Laravel Debugbar for development insights:
+composer require barryvdh/laravel-debugbar --dev
+
+Enable it in .env:
+DEBUGBAR_ENABLED=true
 
 
-Tenancy Setup
-ClinicSync uses the stancl/tenancy package for multi-tenancy, enabling each clinic or hospital to operate as an independent tenant with its own database. Key tenancy features:
+🔐 Default Credentials
+Use these credentials to log in and test the system:
 
-Database Isolation: Each tenant has a separate database (e.g., tenant_clinic1, tenant_clinic2).
-Subdomain Routing: Tenants are accessed via subdomains (e.g., clinic1.yourdomain.com).
-Central Database: Stores tenant metadata (e.g., tenant IDs, domains).
-Tenant-Specific Migrations: Automatically apply migrations to new tenant databases.
 
-To add a new tenant:
-php artisan tenancy:install
-php artisan tenants:seed --tenant=clinic_name
 
-To customize tenancy:
+Role
+Email
+Password
 
-Edit config/tenancy.php for tenant identification (e.g., subdomain, path, or header-based).
-Configure tenant storage drivers (e.g., database, Redis) for scalability.
 
-Usage
 
-Admin Dashboard: Access at http://clinic_name.yourdomain.com/admin to manage patients, appointments, and staff.
-Doctor Portal: Doctors can view schedules, update patient records, and prescribe medications.
-Patient Portal: Patients can book appointments, view medical history, and receive invoices.
-API Access: Use Laravel Sanctum or Passport for secure API endpoints (e.g., /api/patients).
+Admin
+admin@clinicsync.com
+admin123
 
-Learning ClinicSync
 
-Laravel Documentation: Explore Laravel's official documentation for framework details.
-Tenancy Documentation: Refer to stancl/tenancy documentation for multi-tenancy setup.
-Laravel Bootcamp: Try the Laravel Bootcamp to learn Laravel fundamentals.
-Laracasts: Watch Laracasts for tutorials on Laravel, PHP, and tenancy.
+HR Manager
+hr@clinicsync.com
+hr123
 
-Contributing
-We welcome contributions to ClinicSync! To contribute:
 
-Fork the repository.
-Create a feature branch (git checkout -b feature/YourFeature).
-Commit your changes (git commit -m 'Add YourFeature').
-Push to the branch (git push origin feature/YourFeature).
-Open a pull request.
+Doctor
+doctor@clinicsync.com
+doctor123
 
-Please review the Laravel contribution guide and ensure your code follows the PSR-12 coding standard.
-Code of Conduct
-To ensure a welcoming community, please adhere to the Laravel Code of Conduct.
-Security Vulnerabilities
-If you discover a security vulnerability, please email the ClinicSync team at security@clinicsync.com. All issues will be addressed promptly.
-Sponsors
-ClinicSync is built on Laravel, and we thank the Laravel Partners for supporting the framework:
 
-Vehikl
-Tighten Co.
-Kirschbaum Development Group
-64 Robots
-Curotec
-DevSquad
-Redberry
-Active Logic
+Employee
+staff@clinicsync.com
+staff123
 
-Interested in sponsoring ClinicSync? Contact us at sponsor@clinicsync.com.
-License
-ClinicSync is open-source software licensed under the MIT License.
+
+Patient
+patient@clinicsync.com
+patient123
+
+
+
+Note: Change these credentials in production for security.
+
+
+🌟 Testing the Setup
+
+Log in as an admin at http://sunrise_clinic.localhost:8000/admin.
+Verify tenant-specific data (e.g., patients, appointments) is isolated.
+Test features like appointment scheduling, billing, and inventory management.
+Ensure subdomain routing works for additional tenants (e.g., apollo_clinic.localhost:8000).
+
+
+🛠 Troubleshooting
+
+Database Connection Error: Verify .env database credentials and ensure the database server is running.
+Tenancy Issues: Check config/tenancy.php and ensure tenant databases are created (tenant_*).
+Subdomain Not Working: Update your hosts file (e.g., /etc/hosts on macOS/Linux or C:\Windows\System32\drivers\etc\hosts on Windows) to include:127.0.0.1 sunrise_clinic.localhost
+
+
+Frontend Assets Missing: Run npm install and npm run build again.
+
+For further help, consult the stancl/tenancy documentation or Laravel documentation.
+
+📚 Next Steps
+
+Explore the ClinicSync README for feature details and contribution guidelines.
+Customize tenant configurations in config/tenancy.php.
+Extend the system by adding new modules (e.g., telemedicine, lab results).
+Secure the application by updating credentials and enabling HTTPS in production.
+
+Happy managing your clinics with ClinicSync! 🩺
