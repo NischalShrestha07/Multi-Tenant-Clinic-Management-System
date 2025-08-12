@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TenantController extends Controller
 {
@@ -29,24 +31,25 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string',
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'domain' => 'required|string|unique:domains,domain',
             'email' => 'required|email',
-            'domain_name' => 'required|string|max:255|unique:domains,domain',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|confirmed'
         ]);
-        // dd($request);
+
+        // Create tenant with UUID
         $tenant = Tenant::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'domain_name' => $request->domain_name,
-            'password' => $request->password,
+            'id' => Str::uuid(),  // Add this line
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
         ]);
+
+        // Create domain - use FULL domain (tenant1.yourdomain.test)
         $tenant->domains()->create([
-            'domain' => $validatedData['domain_name'] .
-                '.' . config('app.domain')
+            'domain' => $validated['domain']
         ]);
-        // return $tenant;
 
         return redirect()->route('tenants.index');
     }
