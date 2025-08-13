@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("Welcome!") }}
-                    <x-btn-link href="{{route('tenants.index')}}">Tenants</x-btn-link>
+                    <x-btn-link href="{{route('central.tenants.index')}}">Tenants</x-btn-link>
                 </div>
 
             </div>
