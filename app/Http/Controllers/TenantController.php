@@ -31,27 +31,26 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'domain' => 'required|string|unique:domains,domain',
+        $validatedData = $request->validate([
+            'name' => 'required|string',
             'email' => 'required|email',
-            'password' => 'required|confirmed'
+            'domain_name' => 'required|string|max:255|unique:domains,domain',
+            'password' => 'required|string|confirmed',
         ]);
-
-        // Create tenant with UUID
+        // dd($request);
         $tenant = Tenant::create([
-            'id' => Str::uuid(),  // Add this line
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'domain_name' => $request->domain_name,
+            'password' => $request->password,
         ]);
-
-        // Create domain - use FULL domain (tenant1.yourdomain.test)
         $tenant->domains()->create([
-            'domain' => $validated['domain']
+            'domain' => $validatedData['domain_name'] .
+                '.' . config('app.domain')
         ]);
+        // return $tenant;
 
-        return redirect()->route('tenants.index');
+        return redirect()->route('central.tenants.index');
     }
 
 

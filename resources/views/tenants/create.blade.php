@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Add Tenant') }}
-            <x-btn-link href="{{route('tenants.index')}}" class="float-right">Back</x-btn-link>
+            <x-btn-link href="{{route('central.tenants.index')}}" class="float-right">Back</x-btn-link>
         </h2>
 
     </x-slot>
@@ -12,7 +12,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <form method="POST" action="{{ route('tenants.store') }}" method="POST">
+                    <form method="POST" action="{{ route('central.tenants.store') }}" method="POST">
                         @csrf
 
                         <!-- Name -->
