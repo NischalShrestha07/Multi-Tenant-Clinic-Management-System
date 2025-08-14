@@ -118,7 +118,7 @@
 
         /* Hero Section */
         .hero {
-            padding: 10rem 0 5rem;
+            padding: 15rem 0 14rem;
             background: linear-gradient(rgba(74, 111, 165, 0.9), rgba(22, 96, 136, 0.9)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
             color: white;
             text-align: center;
