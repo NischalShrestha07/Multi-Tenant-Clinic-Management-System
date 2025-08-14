@@ -12,8 +12,8 @@
                     {{ __("Welcome!") }}
 
                     @role('admin')
-                    <x-btn-link class="float-right" href="{{route('users.index')}}">Users</x-btn-link>
-                    <x-btn-link class="float-right" href="{{route('products.index')}}">Products</x-btn-link>
+                    <x-btn-link class="float-right" href="{{route('tenant.users.index')}}">Users</x-btn-link>
+                    <x-btn-link class="float-right" href="{{route('tenant.products.index')}}">Products</x-btn-link>
                     @endrole
 
 
