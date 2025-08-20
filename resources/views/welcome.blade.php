@@ -591,7 +591,7 @@
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li>
-                        @if (Route::has('central.login'))
+                        @if (Route::has('login'))
                         <nav class="flex items-center justify-end gap-3">
                             @auth
                             <a href="{{ url('/dashboard') }}"
@@ -599,13 +599,13 @@
                                 Dashboard
                             </a>
                             @else
-                            <a href="{{ route('central.login') }}"
+                            <a href="{{ route('login') }}"
                                 class="px-4 py-2 text-sm rounded-md border border-gray-300 text-gray-800 dark:text-gray-100 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
                                 Log in
                             </a>
 
-                            @if (Route::has('central.register'))
-                            <a href="{{ route('central.register') }}"
+                            @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
                                 class="px-4 py-2 text-sm rounded-md border border-gray-300 text-gray-800 dark:text-gray-100 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
                                 Register
                             </a>

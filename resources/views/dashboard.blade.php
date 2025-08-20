@@ -1,4 +1,4 @@
-<x-tenant-app-layout>
+<x-app-layout>
     <div class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header with Breadcrumbs -->
@@ -8,7 +8,7 @@
                     <nav class="flex" aria-label="Breadcrumb">
                         <ol class="inline-flex items-center space-x-1 md:space-x-2">
                             <li class="inline-flex items-center">
-                                <a href="{{ route('central.dashboard') }}"
+                                <a href="{{ route('dashboard') }}"
                                     class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700">
                                     <i class="fas fa-home mr-2"></i>
                                     Home
@@ -24,7 +24,7 @@
                     </nav>
                 </div>
                 <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
-                    <x-btn-link href="{{ route('central.tenants.create') }}" color="primary" class="w-full sm:w-auto">
+                    <x-btn-link href="{{ route('tenants.create') }}" color="primary" class="w-full sm:w-auto">
                         <i class="fas fa-plus mr-2"></i> New Clinic
                     </x-btn-link>
                     <x-btn-link href="#" color="secondary" class="w-full sm:w-auto">
@@ -90,7 +90,7 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-4 sm:px-6">
                         <div class="text-sm">
-                            <a href="{{ route('central.tenants.index') }}"
+                            <a href="{{ route('tenants.index') }}"
                                 class="font-medium text-indigo-600 hover:text-indigo-500">
                                 View all clinics<i class="fas fa-arrow-right ml-1"></i>
                             </a>
@@ -212,10 +212,10 @@
                                     Recently Added Clinics
                                 </h3>
                                 <div class="flex space-x-2">
-                                    <x-btn-link href="{{ route('central.tenants.index') }}" size="sm" color="secondary">
+                                    <x-btn-link href="{{ route('tenants.index') }}" size="sm" color="secondary">
                                         View All
                                     </x-btn-link>
-                                    <x-btn-link href="{{ route('central.tenants.create') }}" size="sm" color="primary">
+                                    <x-btn-link href="{{ route('tenants.create') }}" size="sm" color="primary">
                                         <i class="fas fa-plus mr-1"></i> Add New
                                     </x-btn-link>
                                 </div>
@@ -670,4 +670,4 @@
             </div>
         </div>
     </div>
-</x-tenant-app-layout>
+</x-app-layout>

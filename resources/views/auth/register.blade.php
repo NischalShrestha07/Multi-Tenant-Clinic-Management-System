@@ -16,7 +16,7 @@
 
             <!-- Form Section -->
             <div class="px-8 py-6">
-                <form method="POST" action="{{ route('central.register') }}" class="space-y-5">
+                <form method="POST" action="{{ route('register') }}" class="space-y-5">
                     @csrf
 
                     <!-- Name -->
@@ -169,7 +169,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
                         Already have an account?
-                        <a href="{{ route('central.login') }}" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">
                             Sign in
                         </a>
                     </p>
