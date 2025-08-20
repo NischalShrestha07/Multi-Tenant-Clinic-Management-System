@@ -44,67 +44,6 @@
                         </div>
                         <nav class="mt-5 flex-1 px-2 space-y-1">
                             <!-- Dashboard -->
-                            {{-- <x-sidebar-link :href="route('central.dashboard')"
-                                :active="request()->routeIs('central.dashboard')">
-                                <i class="fas fa-tachometer-alt mr-3"></i>
-                                {{ __('Dashboard') }}
-                            </x-sidebar-link>
-
-                            <!-- Clinic Management -->
-                            <x-sidebar-link :href="route('central.tenants.index')"
-                                :active="request()->routeIs('central.tenants.*')">
-                                <i class="fas fa-clinic-medical mr-3"></i>
-                                {{ __('Clinics') }}
-                            </x-sidebar-link>
-
-                            <!-- User Management -->
-                            <x-sidebar-link :href="route('central.users.index')"
-                                :active="request()->routeIs('central.users.*')">
-                                <i class="fas fa-users mr-3"></i>
-                                {{ __('Users') }}
-                            </x-sidebar-link>
-
-                            <!-- Patient Management -->
-                            <x-sidebar-link :href="route('central.patients.index')"
-                                :active="request()->routeIs('central.patients.*')">
-                                <i class="fas fa-user-injured mr-3"></i>
-                                {{ __('Patients') }}
-                            </x-sidebar-link>
-
-                            <!-- Appointments -->
-                            <x-sidebar-link :href="route('central.appointments.index')"
-                                :active="request()->routeIs('central.appointments.*')">
-                                <i class="fas fa-calendar-check mr-3"></i>
-                                {{ __('Appointments') }}
-                            </x-sidebar-link>
-
-                            <!-- Billing -->
-                            <x-sidebar-link :href="route('central.billing.index')"
-                                :active="request()->routeIs('central.billing.*')">
-                                <i class="fas fa-credit-card mr-3"></i>
-                                {{ __('Billing') }}
-                            </x-sidebar-link>
-
-                            <!-- Inventory -->
-                            <x-sidebar-link :href="route('central.inventory.index')"
-                                :active="request()->routeIs('central.inventory.*')">
-                                <i class="fas fa-pills mr-3"></i>
-                                {{ __('Inventory') }}
-                            </x-sidebar-link>
-
-                            <!-- Reports -->
-                            <x-sidebar-link :href="route('central.reports')"
-                                :active="request()->routeIs('central.reports')">
-                                <i class="fas fa-chart-bar mr-3"></i>
-                                {{ __('Reports') }}
-                            </x-sidebar-link>
-
-                            <!-- Settings -->
-                            <x-sidebar-link :href="route('central.settings')"
-                                :active="request()->routeIs('central.settings')">
-                                <i class="fas fa-cog mr-3"></i>
-                                {{ __('Settings') }}
-                            </x-sidebar-link> --}}
                             <x-sidebar-link :href="Route::has('central.dashboard') ? route('central.dashboard') : '#'"
                                 :active="request()->routeIs('central.dashboard')"
                                 :disabled="!Route::has('central.dashboard')">
@@ -181,6 +120,17 @@
                                 <i class="fas fa-cog mr-3"></i>
                                 {{ __('Settings') }}
                             </x-sidebar-link>
+
+                            <!-- Logout -->
+                            <x-sidebar-link href="#" :active="false"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt mr-3"></i>
+                                {{ __('Log Out') }}
+                            </x-sidebar-link>
+
+                            <form id="logout-form" method="POST" action="{{ route('central.logout') }}" class="hidden">
+                                @csrf
+                            </form>
                         </nav>
                     </div>
                     <div class="flex-shrink-0 flex border-t border-gray-200 p-4">

@@ -197,4 +197,17 @@ return [
         '--class' => 'TenantDatabaseSeeder', // root seeder class
         // '--force' => true, // This needs to be true to seed tenant databases in production
     ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tenant App URL pattern
+    |--------------------------------------------------------------------------
+    |
+    | This is a helper value you can use to generate tenant URLs dynamically.
+    | Example usage: str_replace('{tenant}', $tenant->id, config('tenancy.tenant_app_url'))
+    |
+    */
+    'tenant_app_url' => env('TENANT_APP_URL', 'http://{tenant}.localhost:8000'),
+
 ];
