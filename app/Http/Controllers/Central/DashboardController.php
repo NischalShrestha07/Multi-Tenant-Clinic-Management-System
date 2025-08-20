@@ -55,7 +55,7 @@ class DashboardController extends Controller
             // Add more alerts...
         ];
 
-        return view('central.dashboard', compact(
+        return view('dashboard', compact(
             'activeClinicsCount',
             'recentClinics',
             'totalPatients',

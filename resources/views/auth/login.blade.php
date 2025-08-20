@@ -18,7 +18,7 @@
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Welcome Back</h2>
             <p class="text-center text-gray-600 mb-8">Sign in to access your clinic management dashboard</p>
 
-            <form method="POST" action="{{ route('central.login') }}" class="space-y-6">
+            <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
 
                 <!-- Email Address -->
@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <a href="{{ route('central.register') }}"
+                    <a href="{{ route('register') }}"
                         class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         {{ __('Create an account') }}
                     </a>

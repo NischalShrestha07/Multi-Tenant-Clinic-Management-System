@@ -50,7 +50,7 @@ class TenantController extends Controller
         ]);
         // return $tenant;
 
-        return redirect()->route('central.tenants.index');
+        return redirect()->route('tenants.index');
     }
 
 

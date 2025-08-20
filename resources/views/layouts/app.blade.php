@@ -44,79 +44,65 @@
                         </div>
                         <nav class="mt-5 flex-1 px-2 space-y-1">
                             <!-- Dashboard -->
-                            <x-sidebar-link :href="Route::has('central.dashboard') ? route('central.dashboard') : '#'"
-                                :active="request()->routeIs('central.dashboard')"
-                                :disabled="!Route::has('central.dashboard')">
+                            <x-sidebar-link :href="Route::has('dashboard') ? route('dashboard') : '#'"
+                                :active="request()->routeIs('dashboard')" :disabled="!Route::has('dashboard')">
                                 <i class="fas fa-tachometer-alt mr-3"></i>
                                 {{ __('Dashboard') }}
                             </x-sidebar-link>
 
                             <!-- Clinic Management -->
-                            <x-sidebar-link
-                                :href="Route::has('central.tenants.index') ? route('central.tenants.index') : '#'"
-                                :active="request()->routeIs('central.tenants.*')"
-                                :disabled="!Route::has('central.tenants.index')">
+                            <x-sidebar-link :href="Route::has('tenants.index') ? route('tenants.index') : '#'"
+                                :active="request()->routeIs('tenants.*')" :disabled="!Route::has('tenants.index')">
                                 <i class="fas fa-clinic-medical mr-3"></i>
                                 {{ __('Clinics') }}
                             </x-sidebar-link>
 
                             <!-- User Management -->
-                            <x-sidebar-link
-                                :href="Route::has('central.users.index') ? route('central.users.index') : '#'"
-                                :active="request()->routeIs('central.users.*')"
-                                :disabled="!Route::has('central.users.index')">
+                            <x-sidebar-link :href="Route::has('users.index') ? route('users.index') : '#'"
+                                :active="request()->routeIs('users.*')" :disabled="!Route::has('users.index')">
                                 <i class="fas fa-users mr-3"></i>
                                 {{ __('Users') }}
                             </x-sidebar-link>
 
                             <!-- Patient Management -->
-                            <x-sidebar-link
-                                :href="Route::has('central.patients.index') ? route('central.patients.index') : '#'"
-                                :active="request()->routeIs('central.patients.*')"
-                                :disabled="!Route::has('central.patients.index')">
+                            <x-sidebar-link :href="Route::has('patients.index') ? route('patients.index') : '#'"
+                                :active="request()->routeIs('patients.*')" :disabled="!Route::has('patients.index')">
                                 <i class="fas fa-user-injured mr-3"></i>
                                 {{ __('Patients') }}
                             </x-sidebar-link>
 
                             <!-- Appointments -->
-                            <x-sidebar-link
-                                :href="Route::has('central.appointments.index') ? route('central.appointments.index') : '#'"
-                                :active="request()->routeIs('central.appointments.*')"
-                                :disabled="!Route::has('central.appointments.index')">
+                            <x-sidebar-link :href="Route::has('appointments.index') ? route('appointments.index') : '#'"
+                                :active="request()->routeIs('appointments.*')"
+                                :disabled="!Route::has('appointments.index')">
                                 <i class="fas fa-calendar-check mr-3"></i>
                                 {{ __('Appointments') }}
                             </x-sidebar-link>
 
                             <!-- Billing -->
-                            <x-sidebar-link
-                                :href="Route::has('central.billing.index') ? route('central.billing.index') : '#'"
-                                :active="request()->routeIs('central.billing.*')"
-                                :disabled="!Route::has('central.billing.index')">
+                            <x-sidebar-link :href="Route::has('billing.index') ? route('billing.index') : '#'"
+                                :active="request()->routeIs('billing.*')" :disabled="!Route::has('billing.index')">
                                 <i class="fas fa-credit-card mr-3"></i>
                                 {{ __('Billing') }}
                             </x-sidebar-link>
 
                             <!-- Inventory -->
-                            <x-sidebar-link
-                                :href="Route::has('central.inventory.index') ? route('central.inventory.index') : '#'"
-                                :active="request()->routeIs('central.inventory.*')"
-                                :disabled="!Route::has('central.inventory.index')">
+                            <x-sidebar-link :href="Route::has('inventory.index') ? route('inventory.index') : '#'"
+                                :active="request()->routeIs('inventory.*')" :disabled="!Route::has('inventory.index')">
                                 <i class="fas fa-pills mr-3"></i>
                                 {{ __('Inventory') }}
                             </x-sidebar-link>
 
                             <!-- Reports -->
-                            <x-sidebar-link :href="Route::has('central.reports') ? route('central.reports') : '#'"
-                                :active="request()->routeIs('central.reports')"
-                                :disabled="!Route::has('central.reports')">
+                            <x-sidebar-link :href="Route::has('reports') ? route('reports') : '#'"
+                                :active="request()->routeIs('reports')" :disabled="!Route::has('reports')">
                                 <i class="fas fa-chart-bar mr-3"></i>
                                 {{ __('Reports') }}
                             </x-sidebar-link>
 
                             <!-- Settings -->
-                            <x-sidebar-link :href="Route::has('central.settings') ? route('central.settings') : '#'"
-                                :active="request()->routeIs('central.settings')"
-                                :disabled="!Route::has('central.settings')">
+                            <x-sidebar-link :href="Route::has('settings') ? route('settings') : '#'"
+                                :active="request()->routeIs('settings')" :disabled="!Route::has('settings')">
                                 <i class="fas fa-cog mr-3"></i>
                                 {{ __('Settings') }}
                             </x-sidebar-link>
@@ -128,7 +114,7 @@
                                 {{ __('Log Out') }}
                             </x-sidebar-link>
 
-                            <form id="logout-form" method="POST" action="{{ route('central.logout') }}" class="hidden">
+                            <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
                                 @csrf
                             </form>
                         </nav>
@@ -142,7 +128,7 @@
                             </div>
                             <div class="ml-3">
                                 <p class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</p>
-                                <a href="{{ route('central.profile.edit') }}"
+                                <a href="{{ route('profile.edit') }}"
                                     class="text-xs font-medium text-blue-600 hover:text-blue-500">
                                     View profile
                                 </a>

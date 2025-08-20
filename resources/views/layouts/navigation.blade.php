@@ -27,11 +27,11 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('central.profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        {{-- <x-dropdown-link :href="route('central.settings')">
+                        {{-- <x-dropdown-link :href="route('settings')">
                             {{ __('System Settings') }}
                         </x-dropdown-link> --}}
                         <x-dropdown-link>
@@ -39,9 +39,9 @@
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('central.logout') }}">
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('central.logout')" onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                           this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -69,39 +69,38 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         {{-- <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('central.dashboard')" :active="request()->routeIs('central.dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('central.tenants.index')"
-                :active="request()->routeIs('central.tenants.*')">
+            <x-responsive-nav-link :href="route('tenants.index')" :active="request()->routeIs('tenants.*')">
                 {{ __('Clinics') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('central.users.index')" :active="request()->routeIs('central.users.*')">
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                 {{ __('Users') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('central.reports')" :active="request()->routeIs('central.reports')">
+            <x-responsive-nav-link :href="route('reports')" :active="request()->routeIs('reports')">
                 {{ __('Reports') }}
             </x-responsive-nav-link>
         </div> --}}
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="Route::has('central.dashboard') ? route('central.dashboard') : '#'"
-                :active="request()->routeIs('central.dashboard')" :disabled="!Route::has('central.dashboard')">
+            <x-responsive-nav-link :href="Route::has('dashboard') ? route('dashboard') : '#'"
+                :active="request()->routeIs('dashboard')" :disabled="!Route::has('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="Route::has('central.tenants.index') ? route('central.tenants.index') : '#'"
-                :active="request()->routeIs('central.tenants.*')" :disabled="!Route::has('central.tenants.index')">
+            <x-responsive-nav-link :href="Route::has('tenants.index') ? route('tenants.index') : '#'"
+                :active="request()->routeIs('tenants.*')" :disabled="!Route::has('tenants.index')">
                 {{ __('Clinics') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="Route::has('central.users.index') ? route('central.users.index') : '#'"
-                :active="request()->routeIs('central.users.*')" :disabled="!Route::has('central.users.index')">
+            <x-responsive-nav-link :href="Route::has('users.index') ? route('users.index') : '#'"
+                :active="request()->routeIs('users.*')" :disabled="!Route::has('users.index')">
                 {{ __('Users') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="Route::has('central.reports') ? route('central.reports') : '#'"
-                :active="request()->routeIs('central.reports')" :disabled="!Route::has('central.reports')">
+            <x-responsive-nav-link :href="Route::has('reports') ? route('reports') : '#'"
+                :active="request()->routeIs('reports')" :disabled="!Route::has('reports')">
                 {{ __('Reports') }}
             </x-responsive-nav-link>
         </div>
@@ -113,41 +112,41 @@
             </div>
 
             {{-- <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('central.profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('central.settings')">
+                <x-responsive-nav-link :href="route('settings')">
                     {{ __('System Settings') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('central.logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-responsive-nav-link :href="route('central.logout')" onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
             </div> --}}
             <div class="mt-3 space-y-1">
-                @if (Route::has('central.profile.edit'))
-                <x-responsive-nav-link :href="route('central.profile.edit')">
+                @if (Route::has('profile.edit'))
+                <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
                 @endif
 
-                @if (Route::has('central.settings'))
-                <x-responsive-nav-link :href="route('central.settings')">
+                @if (Route::has('settings'))
+                <x-responsive-nav-link :href="route('settings')">
                     {{ __('System Settings') }}
                 </x-responsive-nav-link>
                 @endif
 
                 <!-- Authentication -->
-                @if (Route::has('central.logout'))
-                <form method="POST" action="{{ route('central.logout') }}">
+                @if (Route::has('logout'))
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-responsive-nav-link :href="route('central.logout')"
+                    <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault(); this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
