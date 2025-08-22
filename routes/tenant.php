@@ -8,10 +8,13 @@ use App\Http\Controllers\App\ProfileController;
 use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::domain('{tenant}.localhost')->middleware([
     'web',
     InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+
 ])->group(function () {
     Route::get('/', function () {
         return view('app.welcome');
